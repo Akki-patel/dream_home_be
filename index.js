@@ -5,6 +5,8 @@ import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
 import listingRouter from './routes/listing.route.js';
 import cookieParser from 'cookie-parser';
+import Home from "./routes/home.route.js"
+
 import path from 'path';
 import cors from "cors"
 dotenv.config();
@@ -30,16 +32,18 @@ app.listen(PORT, () => {
   console.log('Server is running on port 3000!');
 });
 
-app.use('/api/user', userRouter);
-app.use('/api/auth', authRouter);
-app.use('/api/listing', listingRouter);
+app.post('/user', userRouter);
+app.post('/auth', authRouter);
+app.post('/listing', listingRouter);
+app.post('/listing', listingRouter);
+app.get('/',Home);
 
 
-app.use(express.static(path.join(__dirname, '/client/dist')));
+// app.use(express.static(path.join(__dirname, '/client/dist')));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-})
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+// })
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
